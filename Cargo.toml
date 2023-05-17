@@ -1,0 +1,28 @@
+[package]
+name = "borzoi"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "3.1.8", features = ["derive"] }
+
+# webserver shit
+actix-web = "4.0"
+actix-web-prom = "0.6.0"
+
+# serde serialization / deserialization
+serde = { version = "1.0", features = ["derive"] }
+
+# protobuf grpc
+tonic = "0.7"
+
+# database
+diesel = { version = "2", features = ["postgres", "r2d2", "uuid", "chrono"] }
+r2d2 = "*"
+
+# utils
+chrono = {version = "0.4", features = [ "serde" ]} 
+tokio = "*"
+env_logger = "*"
+log = "*"
+uuid = {version = "*", features = [ "serde" ]}
