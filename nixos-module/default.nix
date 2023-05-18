@@ -9,20 +9,23 @@ in
       default = false;
       description = ''Wether to enable borzoi service'';
     };
-    host = mkOption {
-      type = types.str;
-      default = "127.0.0.1";
-      description = ''
-        To which IP should bind.
-      '';
+    http = {
+      host = mkOption {
+        type = types.str;
+        default = "127.0.0.1";
+        description = ''
+          To which IP should bind.
+        '';
+      };
+      port = mkOption {
+        type = types.port;
+        default = 8021;
+        description = ''
+          To which port should borzoi bind.
+        '';
+      };
     };
-    port = mkOption {
-      type = types.port;
-      default = 8080;
-      description = ''
-        To which port should borzoi bind.
-      '';
-    };
+    
     database = {
       host = mkOption {
         type = types.str;
@@ -117,6 +120,7 @@ in
         "wartrammer"
         "borzoi"
         "trekkie"
+        "data-accumulator"
       ];
       gid = 1501;
     };
@@ -125,23 +129,23 @@ in
       services = {
         "borzoi" = {
           enable = true;
-          wantedBy = [ "multi-user.target" "setup-borzoi.service" ];
+          wantedBy = [ "multi-user.target" ];
 
           script = ''
-            exec ${pkgs.borzoi}/bin/borzoi --host ${cfg.host} --port ${toString cfg.port}&
+            exec ${pkgs.borzoi}/bin/borzoi --host ${cfg.http.host} --port ${toString cfg.http.port}&
           '';
 
           environment = {
-            "POSTGRES_PASSWORD_PATH" = "${cfg.database.passwordFile}";
             "RUST_LOG" = "${cfg.log_level}";
             "RUST_BACKTRACE" = if (cfg.log_level == "info") then "0" else "1";
-            "POSTGRES_HOST" = "${cfg.database.host}";
-            "POSTGRES_PORT" = "${toString cfg.database.port}";
-            "POSTGRES_USER" = "${toString cfg.database.user}";
-            "POSTGRES_DATABASE" = "${toString cfg.database.database}";
+            "BORZOI_POSTGRES_PASSWORD_PATH" = "${cfg.database.passwordFile}";
+            "BORZOI_POSTGRES_HOST" = "${cfg.database.http.host}";
+            "BORZOI_POSTGRES_PORT" = "${toString cfg.database.port}";
+            "BORZOI_POSTGRES_USER" = "${toString cfg.database.user}";
+            "BORZOI_POSTGRES_DATABASE" = "${toString cfg.database.database}";
           } // (lib.foldl
             (x: y:
-              lib.mergeAttrs x { "GRPC_HOST_${y.name}" = "${y.schema}://${y.host}:${toString y.port}"; })
+              lib.mergeAttrs x { "BORZOI_GRPC_HOST_${y.name}" = "${y.schema}://${y.host}:${toString y.port}"; })
             { }
             cfg.GRPC);
 

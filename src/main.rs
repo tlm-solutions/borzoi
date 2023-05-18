@@ -3,10 +3,10 @@ extern crate diesel;
 extern crate r2d2;
 
 mod filter;
-mod routes;
-mod structs;
-mod schema;
 mod models;
+mod routes;
+mod schema;
+mod structs;
 
 pub use routes::receiving_tetra;
 use structs::Args;
@@ -119,7 +119,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(postgres_pool.clone())
             //.app_data(app_state)
             .route("/tetra", web::post().to(receiving_tetra))
-            //.route("/telegram/raw", web::post().to(receiving_raw))
+        //.route("/telegram/raw", web::post().to(receiving_raw))
     })
     .bind((host, port))?
     .run()

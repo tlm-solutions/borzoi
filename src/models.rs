@@ -1,13 +1,12 @@
 use std::hash::Hash;
 
-use uuid::Uuid;
-use serde::{Serialize, Deserialize};
 use chrono::{DateTime, Utc};
-use std::hash::{Hasher};
-use diesel::{Insertable};
+use diesel::Insertable;
+use serde::{Deserialize, Serialize};
+use std::hash::Hasher;
+use uuid::Uuid;
 
 use crate::schema::tetra_data;
-
 
 #[derive(Serialize, Deserialize, Debug, Insertable)]
 #[diesel(table_name = tetra_data)]

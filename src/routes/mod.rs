@@ -1,4 +1,4 @@
-use super::{/*ApplicationState,*/ DbPool};
+use super::DbPool;
 /*use tlms::management::Station;
 use tlms::telegrams::{
     r09::{R09ReceiveTelegram, R09SaveTelegram},
@@ -98,9 +98,11 @@ pub async fn receiving_tetra(
         .values(&unwrapped_telgram)
         .execute(&mut database_connection)
     {
-        warn!("Postgres Error {:?} with telegram: {:?}", e, &unwrapped_telgram);
+        warn!(
+            "Postgres Error {:?} with telegram: {:?}",
+            e, &unwrapped_telgram
+        );
     }
 
     web::Json(Response { success: true })
 }
-
