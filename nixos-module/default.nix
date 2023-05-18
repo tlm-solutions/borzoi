@@ -129,7 +129,7 @@ in
             "RUST_LOG" = "${cfg.log_level}";
             "RUST_BACKTRACE" = if (cfg.log_level == "info") then "0" else "1";
             "BORZOI_POSTGRES_PASSWORD_PATH" = "${cfg.database.passwordFile}";
-            "BORZOI_POSTGRES_HOST" = "${cfg.database.http.host}";
+            "BORZOI_POSTGRES_HOST" = "${cfg.database..host}";
             "BORZOI_POSTGRES_PORT" = "${toString cfg.database.port}";
             "BORZOI_POSTGRES_USER" = "${toString cfg.database.user}";
             "BORZOI_POSTGRES_DATABASE" = "${toString cfg.database.database}";
