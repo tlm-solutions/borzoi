@@ -114,16 +114,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.groups.TLMS-radio = {
-      name = "TLMS-radio";
-      members = [
-        "wartrammer"
-        "borzoi"
-        "trekkie"
-        "data-accumulator"
-      ];
-      gid = 1501;
-    };
 
     systemd = {
       services = {
@@ -165,8 +155,7 @@ in
       isNormalUser = false;
       isSystemUser = true;
       group = cfg.group;
-      uid = 1501;
-      extraGroups = [ config.users.groups."TLMS-radio".name ];
+      uid = 1521;
     };
   };
 }
