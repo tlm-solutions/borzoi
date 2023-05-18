@@ -78,7 +78,7 @@
               cp $BUILD_DIR/schema.rs src/schema.rs
             '';
 
-            run-migration-based = pkgs.writeScriptBin "run-migration" ''
+            run-migration-borzoi = pkgs.writeScriptBin "run-migration" ''
               ${pkgs.diesel-cli}/bin/diesel migration run
             '';
           };
@@ -89,7 +89,7 @@
       ) // {
       overlays.default = final: prev: {
         inherit (self.packages.${prev.system})
-          borzoi;
+          borzoi run-migration-borzoi;
       };
 
       nixosModules = rec {
