@@ -65,7 +65,7 @@
                 server.copy_from_vm("schema.rs", "")
               '';
             }{
-              inherit pkgs; 
+              inherit pkgs;
               inherit (pkgs) system;
             });
           packages = {
@@ -79,7 +79,7 @@
             '';
 
             run-migration-borzoi = pkgs.writeScriptBin "run-migration" ''
-              ${pkgs.diesel-cli}/bin/diesel migration run
+              ${pkgs.diesel-cli}/bin/diesel migration run --migration-dir ${self}/migrations
             '';
           };
           devShells.default = pkgs.mkShell {
