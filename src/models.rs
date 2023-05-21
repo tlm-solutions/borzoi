@@ -1,5 +1,6 @@
 use std::hash::Hash;
 
+use serde_json;
 use chrono::{DateTime, Utc};
 use diesel::Insertable;
 use serde::{Deserialize, Serialize};
@@ -19,6 +20,7 @@ pub struct TetraTelegram {
     pub protocol_identifier: i32,
     pub telegram_type: String,
     pub data: Vec<u8>,
+    pub arbitrary: Option<serde_json::Value>
 }
 
 impl Hash for TetraTelegram {

@@ -10,5 +10,6 @@ diesel::table! {
         protocol_identifier -> Int4,
         telegram_type -> Text,
         data -> Bytea,
+        arbitrary -> Nullable<Json>,
     }
 }
