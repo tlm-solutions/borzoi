@@ -48,22 +48,16 @@ type DbPool = r2d2::Pool<ConnectionManager<PgConnection>>;
 /// default uri: postgres://tlms:{password}@localhost:5432/tlms
 /// where the password is read from /run/secrets/postgres_password
 pub fn create_db_pool() -> DbPool {
-    let default_postgres_host = String::from("localhost");
-    let default_postgres_port = String::from("5432");
-    let default_postgres_user = String::from("datacare");
-    let default_postgres_database = String::from("tlms");
-    let default_postgres_pw_path = String::from("/run/secrets/postgres_password");
-
-    let password_path = env::var("BORZOI_POSTGRES_PASSWORD_PATH").unwrap_or(default_postgres_pw_path);
+    let password_path = env::var("BORZOI_POSTGRES_PASSWORD_PATH").expect("BORZOI_POSTGRES_PASSWORD_PATH is not set!");
     let password = fs::read_to_string(password_path).expect("cannot read password file!");
 
     let database_url = format!(
         "postgres://{}:{}@{}:{}/{}",
-        env::var("BORZOI_POSTGRES_USER").unwrap_or(default_postgres_user),
+        env::var("BORZOI_POSTGRES_USER").expect("BORZOI_POSTGRES_USER is not set"),
         password,
-        env::var("BORZOI_POSTGRES_HOST").unwrap_or(default_postgres_host),
-        env::var("BORZOI_POSTGRES_PORT").unwrap_or(default_postgres_port),
-        env::var("BORZOI_POSTGRES_DATABASE").unwrap_or(default_postgres_database)
+        env::var("BORZOI_POSTGRES_HOST").expect("BORZOI_POSTGRES_HOST is not set"),
+        env::var("BORZOI_POSTGRES_PORT").expect("BORZOI_POSTGRES_PORT is not set"),
+        env::var("BORZOI_POSTGRES_DATABASE").expect("BORZOI_POSTGRES_DATABASE is not set")
     );
 
     debug!("Connecting to postgres database {}", &database_url);
