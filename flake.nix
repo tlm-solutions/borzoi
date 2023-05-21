@@ -10,16 +10,28 @@
     utils = {
       url = "github:numtide/flake-utils";
     };
+
+    fenix = {
+      url = "github:nix-community/fenix";
+    };
   };
 
-  outputs = { self, nixpkgs, naersk, utils, ... }:
+  outputs = { self, nixpkgs, naersk, utils, fenix, ... }:
     utils.lib.eachSystem ["x86_64-linux" "aarch64-linux" ]
       (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
 
+          toolchain = with fenix.packages.${system}; combine [
+            latest.cargo
+            latest.rustc
+          ];
+
           package = pkgs.callPackage ./derivation.nix {
-            naersk = naersk.lib.${system};
+            buildPackage = (naersk.lib.${system}.override {
+              cargo = toolchain;
+              rustc = toolchain;
+            }).buildPackage;
           };
 
           makeTest = pkgs.callPackage "${nixpkgs}/nixos/tests/make-test-python.nix";

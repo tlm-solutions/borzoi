@@ -1,15 +1,6 @@
-{ naersk
-, src
-, lib
-, pkg-config
-, cmake
-, protobuf
-, postgresql_14
-, zlib
-, openssl
-}:
+{ buildPackage, src, lib, pkg-config, cmake, protobuf, postgresql, zlib, openssl }:
 
-naersk.buildPackage {
+buildPackage {
   pname = "borzoi";
   version = "0.1.0";
 
@@ -18,10 +9,10 @@ naersk.buildPackage {
   cargoSha256 = lib.fakeSha256;
 
   nativeBuildInputs = [ pkg-config cmake ];
-  buildInputs = [ protobuf zlib postgresql_14 openssl ];
+  buildInputs = [ protobuf zlib postgresql openssl ];
 
-  meta = {
-    description = "Simple rust server which collects data from tetra stations";
+  meta = with lib; {
+    description = "Simple rust server which collects sniffed data";
     homepage = "https://github.com/tlm-solutions/borzoi";
   };
 }
