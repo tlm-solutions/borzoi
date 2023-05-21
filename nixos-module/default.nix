@@ -54,7 +54,7 @@ in
         '';
       };
       passwordFile = mkOption {
-        type = types.oneOf [ null types.path types.string ];
+        type = types.nullOr (types.either types.path types.string);
         default = null;
         description = ''password file from which the postgres password can be read'';
       };
