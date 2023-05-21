@@ -25,7 +25,7 @@ in
         '';
       };
     };
-    
+
     database = {
       host = mkOption {
         type = types.str;
@@ -43,21 +43,19 @@ in
       };
       user = mkOption {
         type = types.str;
-        default = "borzoi";
         description = ''
           user for postgres
         '';
       };
       database = mkOption {
         type = types.str;
-        default = "tlms";
         description = ''
           postgres database to use
         '';
       };
       passwordFile = mkOption {
-        type = types.either types.path types.string;
-        default = "";
+        type = types.oneOf [ null types.path types.string ];
+        default = null;
         description = ''password file from which the postgres password can be read'';
       };
     };
