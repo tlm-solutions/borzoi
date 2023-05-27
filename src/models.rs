@@ -12,7 +12,6 @@ use crate::schema::tetra_data;
 #[derive(Serialize, Deserialize, Debug, Insertable)]
 #[diesel(table_name = tetra_data)]
 pub struct TetraTelegram {
-    pub id: i64,
     pub time: DateTime<Utc>,
     pub station: Uuid,
     pub source_ssi: i32,
