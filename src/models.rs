@@ -28,7 +28,6 @@ impl Hash for TetraTelegram {
         self.source_ssi.hash(state);
         self.destination_ssi.hash(state);
         self.protocol_identifier.hash(state);
-        self.protocol_identifier.hash(state);
         self.telegram_type.hash(state);
         self.data.hash(state);
     }
