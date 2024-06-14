@@ -8,6 +8,7 @@ mod schema;
 mod structs;
 
 pub use routes::receiving_tetra;
+use routes::tetra_failed_slots;
 use structs::Args;
 
 use actix_web::{web, App, HttpServer};
@@ -71,6 +72,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(prometheus)
             .app_data(postgres_pool.clone())
             .route("/tetra", web::post().to(receiving_tetra))
+            .route("/tetra/failed_slots", web::post().to(tetra_failed_slots))
     })
     .bind((host, port))?
     .run()
