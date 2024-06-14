@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
 
     naersk = {
       url = "github:nix-community/naersk";
@@ -42,7 +42,6 @@
             username = "postgres";
             password = "password";
             database = "database";
-            migrations_dir = "migrations-based";
           in
           (makeTest
             {
