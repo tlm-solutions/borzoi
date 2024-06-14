@@ -83,6 +83,8 @@
             borzoi = package;
             default = package;
             update-schema = pkgs.writeScriptBin "update-schema" ''
+              #!/usr/bin/env bash
+              
               nix build ${self}#checks.${system}.test-diesel-migration
               BUILD_DIR=$(nix build ${self}#checks.${system}.test-diesel-migration --no-link --print-out-paths)
               rm -rf src/schema.rs
