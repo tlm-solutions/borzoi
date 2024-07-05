@@ -33,3 +33,16 @@ pub struct TetraFailedSlots {
     pub second_slot_data: Option<Vec<u8>>,
     pub second_slot_crc_ok: Option<bool>,
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::models::TetraFailedSlots;
+    #[test]
+    fn optional_tetra_failed_slots() {
+        let tetra_failed_slots: TetraFailedSlots = serde_json::from_str(
+            r#"{"burst_type":3,"first_slot_crc_ok":true,"first_slot_logical_channel":3,"first_slot_data":[0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,1,0,1,1,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,1,1,1,0,0,0,1,0,0,0,1,1,1,1,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"second_slot_present":false,"station":"00000000-0000-0000-0000-000000001005","time":"2024-07-04T22:14:42+0200"}"#,
+        ).unwrap();
+
+        println!("{:?}", tetra_failed_slots);
+    }
+}
