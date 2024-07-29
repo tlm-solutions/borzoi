@@ -11,6 +11,7 @@ use crate::schema::{tetra_data, tetra_failed_slots};
 pub struct TetraTelegram {
     pub time: DateTime<Utc>,
     pub station: Uuid,
+    pub protocol_version: i32,
     pub key: String,
     pub value: Option<serde_json::Value>,
 }

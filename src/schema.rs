@@ -7,6 +7,7 @@ diesel::table! {
         time -> Timestamptz,
         key -> Text,
         value -> Json,
+        protocol_version -> Int4,
     }
 }
 
