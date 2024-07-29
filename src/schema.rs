@@ -5,12 +5,8 @@ diesel::table! {
         id -> Int8,
         station -> Uuid,
         time -> Timestamptz,
-        source_ssi -> Int4,
-        destination_ssi -> Int4,
-        protocol_identifier -> Int4,
-        telegram_type -> Text,
-        data -> Bytea,
-        arbitrary -> Nullable<Json>,
+        key -> Text,
+        value -> Json,
     }
 }
 

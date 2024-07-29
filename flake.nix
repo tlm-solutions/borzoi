@@ -53,9 +53,6 @@
                     ensureDatabases = [ database ];
                     ensureUsers = [{
                       name = username;
-                      ensurePermissions = {
-                        "DATABASE ${database}" = "ALL PRIVILEGES";
-                      };
                     }];
                     initialScript = pkgs.writeScript "initScript" ''
                       ALTER USER postgres WITH PASSWORD '${password}';
