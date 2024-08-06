@@ -5,7 +5,7 @@ diesel::table! {
         id -> Int8,
         station -> Uuid,
         time -> Timestamptz,
-        key -> Text,
+        key -> Int4,
         value -> Json,
         protocol_version -> Int4,
     }
