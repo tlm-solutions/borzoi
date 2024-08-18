@@ -12,7 +12,7 @@ pub struct TetraTelegram {
     pub time: DateTime<Utc>,
     pub station: Uuid,
     pub protocol_version: i32,
-    pub key: String,
+    pub key: i32,
     pub value: Option<serde_json::Value>,
 }
 
