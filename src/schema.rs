@@ -19,11 +19,11 @@ diesel::table! {
         burst_type -> Int4,
         slot_type -> Int4,
         first_slot_logical_channel -> Int4,
-        first_slot_data -> Bytea,
+        first_slot_data -> Json,
         first_slot_crc_ok -> Bool,
         second_slot_present -> Bool,
         second_slot_logical_channel -> Nullable<Int4>,
-        second_slot_data -> Nullable<Bytea>,
+        second_slot_data -> Nullable<Json>,
         second_slot_crc_ok -> Nullable<Bool>,
     }
 }

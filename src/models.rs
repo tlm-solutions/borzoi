@@ -24,11 +24,11 @@ pub struct TetraFailedSlots {
     pub burst_type: i32,
     pub slot_type: i32,
     pub first_slot_logical_channel: i32,
-    pub first_slot_data: Vec<u8>,
+    pub first_slot_data: serde_json::Value,
     pub first_slot_crc_ok: bool,
     pub second_slot_present: bool,
     pub second_slot_logical_channel: Option<i32>,
-    pub second_slot_data: Option<Vec<u8>>,
+    pub second_slot_data: Option<serde_json::Value>,
     pub second_slot_crc_ok: Option<bool>,
 }
 
@@ -48,7 +48,7 @@ mod tests {
     #[test]
     fn optional_tetra_failed_slots() {
         let tetra_failed_slots: TetraFailedSlots = serde_json::from_str(
-            r#"{"burst_type":3,"slot_type":1,"first_slot_crc_ok":true,"first_slot_logical_channel":3,"first_slot_data":[0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,1,0,1,1,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,1,1,1,0,0,0,1,0,0,0,1,1,1,1,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"second_slot_present":false,"station":"00000000-0000-0000-0000-000000001005","time":"2024-07-04T22:14:42+0200"}"#,
+            r#"{"burst_type":4,"first_slot_crc_ok":true,"first_slot_data":{"data_":[false,true,true,true,false,false,false,true,false,false,false,true,false,false,false,false,false,false,false,false,false,true,false,false,true,true,true,true,true,true,true,true,true,true,false,false,false,false,false,false,false,false,true,true,true,true,true,true,false,false,false,false,true,false,false,true,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],"len_":124,"read_offset_":0},"first_slot_logical_channel":0,"second_slot_crc_ok":true,"second_slot_data":{"data_":[false,true,true,true,false,false,false,true,false,false,false,true,false,false,false,false,false,false,false,false,false,true,false,false,true,true,true,true,true,true,true,true,true,true,false,false,false,false,false,false,false,false,true,true,true,true,true,true,false,false,false,false,true,false,false,true,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],"len_":124,"read_offset_":0},"second_slot_logical_channel":0,"second_slot_present":true,"slot_type":1,"station":"00000000-0000-0000-0000-000000001006","time":"2024-08-20T14:23:12+0200"}"#,
         ).unwrap();
 
         println!("{:?}", tetra_failed_slots);
