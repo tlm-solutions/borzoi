@@ -1,38 +1,19 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-
-    naersk = {
-      url = "github:nix-community/naersk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     utils = {
       url = "github:numtide/flake-utils";
     };
-
-    fenix = {
-      url = "github:nix-community/fenix";
-    };
   };
 
-  outputs = { self, nixpkgs, naersk, utils, fenix, ... }:
+  outputs = { self, nixpkgs, utils, ... }:
     utils.lib.eachSystem ["x86_64-linux" "aarch64-linux" ]
       (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
 
-          toolchain = with fenix.packages.${system}; combine [
-            latest.cargo
-            latest.rustc
-          ];
-
-          package = pkgs.callPackage ./derivation.nix {
-            buildPackage = (naersk.lib.${system}.override {
-              cargo = toolchain;
-              rustc = toolchain;
-            }).buildPackage;
-          };
+          package = pkgs.callPackage ./package.nix { };
 
           makeTest = pkgs.callPackage "${nixpkgs}/nixos/tests/make-test-python.nix";
 
@@ -93,7 +74,7 @@
             '';
           };
           devShells.default = pkgs.mkShell {
-            nativeBuildInputs = (with packages.borzoi; buildInputs ++ nativeBuildInputs);
+            nativeBuildInputs = with packages.borzoi; buildInputs ++ nativeBuildInputs;
           };
         }
       ) // {
